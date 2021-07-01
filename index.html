@@ -30,7 +30,7 @@
    <title>Slap Game!</title>
 </head>
 
-<body class="container debug">
+<body class="container">
    <header class="row">
       <!-- <span>Health: <span id="health"></span></span> -->
       <div class="progress col" style="height: 10vh">
@@ -40,14 +40,16 @@
    </header>
    <main class="row justify-space-between">
       <div class="col-3">
-         <div class="row flex-column" id="good-options" style="min-height: 80%">
+         <div class="row flex-column align-items-center justify-content-around" id="good-options"
+            style="min-height: 80%">
             <!-- Good Options will be drawn here -->
          </div>
       </div>
       <img src="target.jpg"
          class="img-fluid ${3|rounded-top,rounded-right,rounded-bottom,rounded-left,rounded-circle,|} col-5" alt="">
       <div class="col-3">
-         <div class="row flex-column" id="bad-options" style="min-height: 80%">
+         <div class="row flex-column align-items-center justify-content-around" id="bad-options"
+            style="min-height: 80%">
          </div>
       </div>
 
