@@ -1,11 +1,11 @@
-const badOptions = {
+const options = {
    slap: {
-      dmg: 1,
+      dmg: 10,
       type: -1,
       style: 'btn-danger'
    },
    poke: {
-      dmg: 10,
+      dmg: 1,
       type: -1,
       style: 'btn-danger'
    },
@@ -14,9 +14,6 @@ const badOptions = {
       type: -1,
       style: 'btn-danger'
    },
-}
-
-const goodOptions = {
    hug: {
       dmg: 5,
       type: 1,
@@ -39,32 +36,42 @@ var health = 100;
 
 
 
-function btnPress() {
-   health -= 1;
+function btnPress(btn) {
+   console.log(btn)
+   let opt = options[btn]
+   health += opt.dmg * opt.type
+   drawHealth()
+   if (health >= 100) {
+      if (btn == 'feed') {
+         alert("I'M NOT HUNGRY!!!")
+      }
+      health = 100
+   } else if (health < 1) {
+      alert("YOU'RE A MURDERER!!!")
+   }
    console.log(health)
 }
 
-function update() {
+function drawHealth() {
+
+   document.getElementById('health').setAttribute('style', 'width:' + Number(health) + '%')
+   document.getElementById('health').innerText = `Health: ${health}`
 
 }
 
 function drawButtons() {
+
    let goodTemplate = ''
    let badTemplate = ''
-   for (let key in goodOptions) {
+
+   for (let key in options) {
       let optUP = key.toUpperCase()
-      console.log(optUP)
-      goodTemplate += `<button class="col-6 btn ${goodOptions[key].style}" onclick="btnPress('${key}')">${optUP}</button>`
+      if (options[key].type > 0) {
+         goodTemplate += `<button class="col-6 btn ${options[key].style}" onclick="btnPress('${key}')">${optUP}</button>`
+      } else {
+         badTemplate += `<button class="col-6 btn ${options[key].style}" onclick="btnPress('${key}')">${optUP}</button>`
+      }
    }
-   for (let key in badOptions) {
-      let optUP = key.toUpperCase()
-      console.log(optUP)
-      badTemplate += `<button class="col-6 btn ${badOptions[key].style}" onclick="btnPress('${key}')">${optUP}</button>`
-   }
-
-
-
-
    document.getElementById('good-options').innerHTML = goodTemplate
    document.getElementById('bad-options').innerHTML = badTemplate
 
