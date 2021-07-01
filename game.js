@@ -39,21 +39,24 @@ var alive = true
 function btnPress(btn) {
    console.log(btn)
    let opt = options[btn]
-   if (alive) { health += opt.dmg * opt.type }
+   if (alive) {
+      health += opt.dmg * opt.type
+   }
+
+
+
    if (health >= 100) {
       if (btn == 'feed') {
-         drawHealth()
-         alert("I'M NOT HUNGRY!!!")
+         document.getElementById('message').innerText = "I'M NOT HUNGRY!!!"
       }
       health = 100
    } else if (health < 1 && alive) {
       health = 0
       alive = false
-      drawHealth()
       alert("YOU'RE A MURDERER!!!")
    }
-   drawHealth()
    console.log(health)
+   drawHealth()
 }
 
 function drawHealth() {
