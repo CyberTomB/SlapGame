@@ -1,4 +1,4 @@
-const options = {
+const items = {
    slap: {
       dmg: 1,
       type: -1,
@@ -31,38 +31,46 @@ const options = {
    }
 }
 
-
-var health = 100;
-var alive = true
+const enemy = {
+   health: 100,
+   alive: true,
+}
 
 
 function btnPress(btn) {
    console.log(btn)
-   let opt = options[btn]
-   if (alive) {
-      health += opt.dmg * opt.type
-   }
-
-
-
-   if (health >= 100) {
-      if (btn == 'feed') {
-         document.getElementById('message').innerText = "I'M NOT HUNGRY!!!"
+   let opt = items[btn]
+   let hp = enemy.health
+   if (enemy.alive) {
+      let message = ''
+      if (btn == 'feed' && hp == 100) {
+         message = "I'M NOT HUNGRY!!!"
       }
-      health = 100
-   } else if (health < 1 && alive) {
-      health = 0
-      alive = false
-      alert("YOU'RE A MURDERER!!!")
+      hp += opt.dmg * opt.type
+      console.log(hp)
+      if (hp >= 100) {
+         hp = 100
+      } else if (hp <= 0 && enemy.alive) {
+         hp = 0
+         enemy.alive = false
+         message = "YOU'RE A MURDERER!!!"
+      }
+      drawMessage(message)
    }
-   console.log(health)
+   enemy.health = hp
+   console.log(hp)
    drawHealth()
 }
 
-function drawHealth() {
+function drawMessage(str) {
+   document.getElementById('message').innerText = str
+}
 
-   document.getElementById('health').setAttribute('style', 'width:' + Number(health) + '%')
-   document.getElementById('health').innerText = `Health: ${health}`
+
+function drawHealth() {
+   console.log('[draw health]', enemy.health)
+   document.getElementById('health').setAttribute('style', 'width:' + Number(enemy.health) + '%')
+   document.getElementById('health').innerText = `Health: ${enemy.health}`
 
 }
 
@@ -71,20 +79,16 @@ function drawButtons() {
    let goodTemplate = ''
    let badTemplate = ''
 
-   for (let key in options) {
+   for (let key in items) {
       let optUP = key.toUpperCase()
-      if (options[key].type > 0) {
-         goodTemplate += `<button class="col-6 btn ${options[key].style}" onclick="btnPress('${key}')">${optUP}</button>`
+      if (items[key].type > 0) {
+         goodTemplate += `<button class="col-6 btn ${items[key].style}" onclick="btnPress('${key}')">${optUP}</button>`
       } else {
-         badTemplate += `<button class="col-6 btn ${options[key].style}" onclick="btnPress('${key}')">${optUP}</button>`
+         badTemplate += `<button class="col-6 btn ${items[key].style}" onclick="btnPress('${key}')">${optUP}</button>`
       }
    }
    document.getElementById('good-options').innerHTML = goodTemplate
    document.getElementById('bad-options').innerHTML = badTemplate
-
-
-
-
 }
 
 drawButtons()
