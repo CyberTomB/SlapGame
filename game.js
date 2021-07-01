@@ -1,16 +1,16 @@
 const options = {
    slap: {
-      dmg: 10,
-      type: -1,
-      style: 'btn-danger'
-   },
-   poke: {
       dmg: 1,
       type: -1,
       style: 'btn-danger'
    },
+   kick: {
+      dmg: 10,
+      type: -1,
+      style: 'btn-danger'
+   },
    punch: {
-      dmg: 25,
+      dmg: 5,
       type: -1,
       style: 'btn-danger'
    },
